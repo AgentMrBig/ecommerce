@@ -17,16 +17,16 @@ const SignUp = () => {
     const handleSubmit = async event =>{
         event.preventDefault();
 
-        //const {displayName, email, password, confirmPassword} = userState;
-        const displayName = userState.displayName;
+        const {displayName, email, password, confirmPassword} = userState;
+        //const displayName = userState.displayName;
 
-        if(userState.password != userState.confirmPassword){
+        if(password != confirmPassword){
             alert("passwords don't match");
             return;
         }
 
         try{
-            const {user} = await auth.createUserWithEmailAndPassword(userState.email, userState.password);
+            const {user} = await auth.createUserWithEmailAndPassword(email, password);
        
             await createUserProfileDocument(user, {displayName});
 
