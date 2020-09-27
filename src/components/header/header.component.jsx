@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 
 import { auth } from '../../firebase/firebase.utils';
@@ -12,6 +12,13 @@ import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 
 const Header = ({ currentUser, hidden }) => {
 
+  const signOut = () => {
+    auth.signOut();
+    return (
+      <Redirect to="/" />
+    )
+  }
+
   return (
     <div className="header">
       <Link className="logo-container" to="/">
@@ -22,7 +29,7 @@ const Header = ({ currentUser, hidden }) => {
         <Link className="options" to='/contact'>CONTACT</Link>
 
         {currentUser ? (
-          <div className="option" onClick={() => auth.signOut()}>
+          <div className="option" onClick={signOut}>
             SIGN OUT
           </div>
         ) : (
